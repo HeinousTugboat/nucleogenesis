@@ -30,7 +30,6 @@
     "gulp-connect": "latest",
     "gulp-concat": "latest",
     "gulp-protractor": "latest",
-    "gulp-concat": "latest",
     "gulp-htmlmin": "latest",
     "gulp-uglify": "latest",
     "uglify-es": "latest",
