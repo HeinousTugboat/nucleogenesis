@@ -1,0 +1,26 @@
+Repo Issues:
+    ☐ #13: Create a Resources Dashboard @enhancement                            https://github.com/angarg12/nucleogenesis/issues/13
+    ☐ #22: Behaviour of Ions @enhancement @feature                              https://github.com/angarg12/nucleogenesis/issues/22
+    ☐ #38: Use swarm-numberformat @enhancement                                  https://github.com/angarg12/nucleogenesis/issues/38
+    ☐ #83: Create tooltips @enhancement                                         https://github.com/angarg12/nucleogenesis/issues/83
+    ☐ #89: Avoid resource starvations @enhancement @l @low                      https://github.com/angarg12/nucleogenesis/issues/89
+    ✔ #101: New upgrade: Boosts @enhancement @m @high                           https://github.com/angarg12/nucleogenesis/issues/101 @done (9/7/2017, 7:50:30 PM)
+    ☐ #102: New upgrade: Synergies @enhancement @m @high                        https://github.com/angarg12/nucleogenesis/issues/102
+    ☐ #103: Balance costs/production of tiers @enhancement @m @high             https://github.com/angarg12/nucleogenesis/issues/102
+    ☐ #104: Rebalance of exotic/dark matter production @enhancement @m @high    https://github.com/angarg12/nucleogenesis/issues/104
+
+Things to Work On:
+    ✔ Add Object.values polyfill... Object.values = (object) => Object.keys(object).map(key => object[key]); @done (9/7/2017, 7:50:18 PM)
+    ☐ Add col-sm-6 to Nova upgrade rows
+    ☐ Show price for next generator and gray out when set to buy max and can't afford any
+    ☐ Move production & isotopes to sidebar
+    ☐ Number H required for next xH on prestige screen
+    ☐ Hide achievements for hidden/locked things
+    ☐ Upgrade price too close on smaller screens
+    ☐ Global upgrade width uneven
+
+Local Issues:
+    ☐ Set up test tasks in VS Code
+    ☐ Set up build tasks in VS Code
+    ✔ .sidebar-nav -> width: 220px @done (9/7/2017, 12:29:20 AM)
+    ✔ Fix upgrades in sim.ts to match local changes @critical @done (9/5/2017, 11:31:11 PM)
