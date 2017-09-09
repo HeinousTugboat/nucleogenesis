@@ -137,14 +137,12 @@ sup {
 }
 
 #dashboard > section {
-    margin: 15px 15px 45px;
-    /*! padding: 0 15px 15px; */
+    margin: 10px 10px 20px;
     border: 1px solid #333;
     background: #FAFAFA;
     color: #333;
-    min-width: 360px;
+    min-width: 300px;
     min-height: 120px;
-    /*! max-width: calc(calc(80vw - 250px) / 2); */
     position: relative;
     flex: 0 0 auto;
     background: white;
@@ -169,6 +167,7 @@ sup {
 /*     font-weight: 700; */
 /*     font-weight: 900; */
     font-family: 'Vollkorn';
+    font-size: 12px;
 }
 #dashboard > section footer span {
     border: 1px solid #777;
