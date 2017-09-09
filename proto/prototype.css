@@ -1,3 +1,74 @@
 body {
     background: #AAA;
+    display: flex;
+    margin: 0;
+    padding: 0;
+    min-height: 100%;
+}
+
+main {
+    position: relative;
+    min-height: 100vh;
+}
+
+#sidebar-nav {
+    display: flex;
+    flex-direction: column;
+    background: #333;
+    color: #FAFAFA;
+    padding: 15px;
+    border-right: 1px solid black;
+}
+
+#dashboard {
+    display: flex;
+    flex-wrap: wrap;
+    margin-top: 45px;
+    position: static;
+}
+
+#dashboard h1 {
+    position: absolute;
+    top: 0;
+    left: 15px;
+}
+
+#dashboard > section {
+    margin: 15px;
+    padding: 15px;
+    border: 1px solid #333;
+    background: #FAFAFA;
+    color: #333;
+    min-width: 60px;
+    max-width: calc(calc(80vw - 250px) / 2);
+    position: relative;
+}
+
+#dashboard > section header {
+    display: flex;
+}
+#dashboard > section footer {
+    position: absolute;
+    bottom: 1px;
+    width: 100%;
+    left: 0px;
+    display: flex;
+    justify-content: space-around
+}
+#dashboard > section footer span {
+    border: 1px solid #333;
+    border-top-color: transparent;
+    background: white;
+    display: inline-block;
+    padding: 2px 20px;
+    transform: translateY(100%);
+    z-index: -1;
+}
+#dashboard > section .generators ol {
+    width: 100%;
+    margin: 0;
+    padding: 0;
+}
+#dashboard > section .generators li {
+    display: flex;
 }
