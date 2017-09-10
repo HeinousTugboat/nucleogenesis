@@ -43,7 +43,7 @@ sup {
     background: #333;
     color: #FAFAFA;
     /*! padding: 15px; */
-    border-right: 1px solid black;
+    border-right: 1px solid #222;
     flex: 0 0 auto;
 }
 
@@ -128,6 +128,9 @@ sup {
     flex-wrap: wrap;
     /*! margin-top: 45px; */
     position: static;
+    /*! align-items: flex-start; */
+    align-items: stretch;
+    /*! align-items: center; */
 }
 
 #dashboard h1 {
@@ -147,6 +150,19 @@ sup {
     flex: 0 0 auto;
     background: white;
 }
+
+/* #dashboard > section:before {
+    content: ' ';
+    position: absolute;
+    top: 0px;
+    left: 0px;
+    bottom: 0px;
+    right: 0px;
+    /*! border: 15px solid #F0F; */
+/*     z-index: 2;
+    box-sizing: border-box;
+    border: 1px solid #333;
+} */
 
 #dashboard > section header {
     display: flex;
@@ -176,6 +192,7 @@ sup {
     display: inline-block;
     padding: 2px 20px;
     z-index: -1;
+    color: #999;
 }
 #dashboard > section .generators ol {
     width: 100%;
@@ -193,10 +210,8 @@ sup {
 
 .symbol {
     text-align: center;
-    border: 2px solid black;
-    border-left: 0px;
-    border-top: 0px;
-    margin: 0 5px 5px 0;
+    border: 2px solid #333;
+    margin: -1px 5px 5px -1px;
     width: 100px;
     height: 100px;
     position:relative;
@@ -270,7 +285,7 @@ ol.new .generator {
 }
 .generator .tag {
     display: flex;
-    border: 1px solid black;
+    border: 1px solid #999;
     flex: 1 1 auto;
 }
 .generator .info {
@@ -311,4 +326,5 @@ ol.new .generator {
     z-index: 10;
     background: white;
     border-color: #333;
+    color: #333;
 }
