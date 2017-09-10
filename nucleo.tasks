@@ -4,8 +4,6 @@ Repo Issues:
     ☐ #38: Use swarm-numberformat @enhancement                                  https://github.com/angarg12/nucleogenesis/issues/38
     ☐ #83: Create tooltips @enhancement                                         https://github.com/angarg12/nucleogenesis/issues/83
     ☐ #89: Avoid resource starvations @enhancement @l @low                      https://github.com/angarg12/nucleogenesis/issues/89
-    ✔ #101: New upgrade: Boosts @enhancement @m @high                           https://github.com/angarg12/nucleogenesis/issues/101 @done (9/7/2017, 7:50:30 PM)
-    ✔ #102: New upgrade: Synergies @enhancement @m @high                        https://github.com/angarg12/nucleogenesis/issues/102 @done (9/9/2017, 10:03:48 PM)
     ☐ #103: Balance costs/production of tiers @enhancement @m @high             https://github.com/angarg12/nucleogenesis/issues/102
     ☐ #104: Rebalance of exotic/dark matter production @enhancement @m @high    https://github.com/angarg12/nucleogenesis/issues/104
     ☐ #109: Offline progression @enhancement @high                              https://github.com/angarg12/nucleogenesis/issues/109
@@ -17,45 +15,22 @@ Repo Issues:
     ☐ #116: Hide upgrades after purchase and/or add sorting                     https://github.com/angarg12/nucleogenesis/issues/116
 
 Things to Work On:
-    ✔ Add Object.values polyfill... Object.values = (object) => Object.keys(object).map(key => object[key]); @done (9/7/2017, 7:50:18 PM)
     ☐ Add col-sm-6 to Nova upgrade rows
     ☐ Show price for next generator and gray out when set to buy max and can't afford any
-    ✔ Move production & isotopes to sidebar @done (9/9/2017, 10:01:13 PM)
     ☐ Number H required for next xH on prestige screen
-    ☐ Hide achievements for hidden/locked things
     ☐ Upgrade price too close on smaller screens
     ☐ Global upgrade width uneven
-
-Local Issues:
-    ☐ Set up test tasks in VS Code
-    ☐ Set up build tasks in VS Code
-    ✔ .sidebar-nav -> width: 220px @done (9/7/2017, 12:29:20 AM)
-    ✔ Fix upgrades in sim.ts to match local changes @critical @done (9/5/2017, 11:31:11 PM)
-    ☐ Check that H+ and p are interchangeable.
-
-Automation Ideas:
-    ☐ Researchers that manage specific elements/reactions?
-        Lab Tech or Analysts that calculate best choices? Or something?
-        Intern Auto-purchase generators?
-
-Prestige Ideas:
-    ☐ Exotic particles generator from reaction? Rate increases exponentially with amount earned? xH from total amount of H earned instead of current amount? current H increase rate of xH gain?
-    ☐ Verify how xH is generated. Are 2H and 3H weighted significantly more heavily? :-O If they are, then maybe have the Exotic Prestige tab show how many each element is generating..
-    ☐ Exotic Upgrades permanent? If not, warn? High initial unlock cost then small fee each prestige?
-    ☐ Lock upgrades to # of prestige cycles?
-
-UI Ideas:
     ☐ Mark upgraded generators? Condense upgrades to one line, disable unpurchased upgrades..
     ☐ Show % of total production?
     ☐ Make sidebar collapsible?
-    ☐ Hide Global upgrades before any eV earned?
-    ☐ Lifetime statistics?
-    ☐ Hide "Total boost: 100%" if unable to change it...
-    ☐ Disable prestige button if can't earn anything...
     ☐ Use a card-type display for each element and include the generators on it? Condense periodic table display down for purchasing and seeing discoveries and summary.. maybe consider some kind of isotope display.
     ☐ Something like this?
         https://en.wikipedia.org/wiki/Table_of_nuclides
     ☐ Change 'element' link so that the entire item is clickable, not just the name.
+
+Local Issues:
+    ☐ Set up test tasks in VS Code
+    ☐ Set up build tasks in VS Code
 
 Balance Ideas:
     ☐ Increase coeff for generator price increases?
@@ -63,9 +38,7 @@ Balance Ideas:
         Hydrogen
         Oxygen == best eV/reactions
         Tin == best dark matter producer
+
 General Ideas..:
     ☐ How are saves built? Can we trim them down? Should we version check them?
-
-
-    ☐ Sacrifice an element to dark matter to bank it for a full prestige later?
-    ☐ Multiple types of exotics == more dark matter..
+    ☐ Check that H+ and p are interchangeable.
