@@ -8,8 +8,10 @@
 <script src="./nodes.js"></script>
 <script src="./links.js"></script>
 <script>
-var nodes = [...baseNodes]
+var nodes = [...baseNodes];
 var links = [...baseLinks]
+// var links = [{source: '1H', target: 'H2', strength: 0}];
+// var links = [{source:"1H","target":"H.H-H2","strength":0},{"source":"H.H-H2","target":"H2","strength":5},{"source":"H2","target":"H2-H.H","strength":5},{"source":"H2-H.H","target":"1H","strength":5}]
 function getNeighbors(node) {
   return baseLinks.reduce(function (neighbors, link) {
       if (link.target.id === node.id) {
@@ -59,7 +61,7 @@ var linkForce = d3
 var simulation = d3
   .forceSimulation()
   .force('link', linkForce)
-  .force('charge', d3.forceManyBody().strength(-30))
+  .force('charge', d3.forceManyBody().strength(-120))
   .force('center', d3.forceCenter(width / 2, height / 2))
 var dragDrop = d3.drag().on('start', function (node) {
   node.fx = node.x
