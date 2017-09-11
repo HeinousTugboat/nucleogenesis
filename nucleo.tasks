@@ -1,18 +1,26 @@
+Main Work:
+    ☐ #13: @primary Create a Resources Dashboard @enhancement                   https://github.com/angarg12/nucleogenesis/issues/13
+    ☐ #103: @primary Balance costs/production of tiers @enhancement @m @high    https://github.com/angarg12/nucleogenesis/issues/102
+    ☐ #120: Analyze and trim savefile @enhancement @low                         https://github.com/angarg12/nucleogenesis/issues/120
+        Add JSON patch to minimize saves
+        https://github.com/Starcounter-Jack/JSON-Patch
+
 Repo Issues:
-    ☐ #13: Create a Resources Dashboard @enhancement                            https://github.com/angarg12/nucleogenesis/issues/13
     ☐ #22: Behaviour of Ions @enhancement @feature                              https://github.com/angarg12/nucleogenesis/issues/22
     ☐ #38: Use swarm-numberformat @enhancement                                  https://github.com/angarg12/nucleogenesis/issues/38
     ☐ #83: Create tooltips @enhancement                                         https://github.com/angarg12/nucleogenesis/issues/83
     ☐ #89: Avoid resource starvations @enhancement @l @low                      https://github.com/angarg12/nucleogenesis/issues/89
-    ☐ #103: Balance costs/production of tiers @enhancement @m @high             https://github.com/angarg12/nucleogenesis/issues/102
     ☐ #104: Rebalance of exotic/dark matter production @enhancement @m @high    https://github.com/angarg12/nucleogenesis/issues/104
     ☐ #109: Offline progression @enhancement @high                              https://github.com/angarg12/nucleogenesis/issues/109
-    ☐ #110: Purchasing Elements out of order                                    https://github.com/angarg12/nucleogenesis/issues/110
     ☐ #112: Lock eV, He, e-, and prestige if inaccessible                       https://github.com/angarg12/nucleogenesis/issues/112
     ☐ #113: Hide achievements before earnable?                                  https://github.com/angarg12/nucleogenesis/issues/113
     ☐ #114: Lifetime Statistics?                                                https://github.com/angarg12/nucleogenesis/issues/114
     ☐ #115: Hide the Boost field on exotic prestige screen if no boost avail    https://github.com/angarg12/nucleogenesis/issues/115
     ☐ #116: Hide upgrades after purchase and/or add sorting                     https://github.com/angarg12/nucleogenesis/issues/116
+    ☐ #118: Update the changelog @enhancement                                   https://github.com/angarg12/nucleogenesis/issues/118
+    ☐ #119: Diegetic Upgrades and Generator Limits! @feature @critical          https://github.com/angarg12/nucleogenesis/issues/119
+    ☐ #123: Buy all upgrades, buy cheapest upgrade @enhancement @low            https://github.com/angarg12/nucleogenesis/issues/123
+    ☐ #124: Add Achievements for unlocked important compounds @content          https://github.com/angarg12/nucleogenesis/issues/124
 
 Things to Work On:
     ☐ Add col-sm-6 to Nova upgrade rows
@@ -27,18 +35,3 @@ Things to Work On:
     ☐ Something like this?
         https://en.wikipedia.org/wiki/Table_of_nuclides
     ☐ Change 'element' link so that the entire item is clickable, not just the name.
-
-Local Issues:
-    ☐ Set up test tasks in VS Code
-    ☐ Set up build tasks in VS Code
-
-Balance Ideas:
-    ☐ Increase coeff for generator price increases?
-    ☐ Is that optimal? 5 dark matter per Tin run, 3 dark matter per H run.. how much exotic for each?
-        Hydrogen
-        Oxygen == best eV/reactions
-        Tin == best dark matter producer
-
-General Ideas..:
-    ☐ How are saves built? Can we trim them down? Should we version check them?
-    ☐ Check that H+ and p are interchangeable.
