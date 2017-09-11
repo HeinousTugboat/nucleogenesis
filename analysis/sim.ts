@@ -2,24 +2,21 @@
  * Variables! For adjusting and stuff!
  */
 
-const MIN = 60;
-const HR = 60 * MIN;
-const DAY = 24 * HR;
-/** # of seconds sim runs */
-const MAX_TIME = 1 * DAY + 1;
-// const MAX_TIME = 1*HR;
-/** Current amount of Hydrogen, initializes at 15 */
-let currH = 15;
-/** Lifetime H earned */
-let totalH = currH;
-/** Current rate of Hydrogen gain */
-let rate = 0;
-/** Cost coefficient */
-let coeff = 1.05;
-/** Number of Exotic Particles currently */
-let currX = 0;
-/** Lifetime xH earned */
-let totalX = currX;
+import config from './config';
+import {Generator, IGen, isGen} from './generators';
+import {Upgrade, IUp} from './upgrades';
+
+const {MIN, HR, DAY} = config;
+// const MAX_TIME = 1 * DAY + 1;
+const MAX_TIME = 10;
+const {H, xH} = config.resources;
+
+let currH = H.current;
+let totalH = H.total;
+let rate = H.rate;
+const {coeff} = config;
+let {current: currX, total: totalX} = xH;
+
 /** Num of exotic particles to prestige at.. */
 const xThresh = Infinity;
 /** Num of seconds to prestige at.. */
@@ -35,41 +32,8 @@ const exForm = 'fancy';
  */
 
 const fs = require('fs');
-const path = './analysis/' + 'progress-' + exForm + '.csv';
+const path = './analysis/sim-'+Date.now()+'.csv';
 const stream = fs.createWriteStream(path);
-
-/**
- * Interfaces for things.
- */
-
-interface Generator {
-    name: string;
-    price: number;
-    power: number;
-    deps: string[];
-    num?: number;
-    basePower: number;
-    type: 'generator';
-}
-interface IGen {
-    [key: string]: Generator
-}
-
-interface Upgrade {
-    price: number;
-    name: string;
-    description: string;
-    tiers: string[];
-    deps: string[];
-    exotic_deps: string[];
-    dark_deps: string[];
-    power?: number;
-    bought?: boolean;
-    type: 'upgrade';
-}
-interface IUp {
-    [key: string]: Upgrade
-}
 
 let gens: IGen = require('../src/data/generators.json');
 let upgrades: IUp = require('../src/data/upgrades.json');
@@ -90,26 +54,12 @@ for (let upgrade in upgrades) {
     slush.push(upgrades[upgrade]);
 }
 
-function isGen(g: Generator | Upgrade): g is Generator {
-    // switch (g.type) {
-    //     case 'generator': return true;
-    //     case 'upgrade': return false;
-    // }
-    return (<Generator>g).type === 'generator';
-}
-
 const choices: (Generator | Upgrade)[] = [gens['1'], gens['2'], upgrades['1-1'], upgrades['2-1']];
 
 
 let exoticDeps = {
     'x2': true,
-    'x3': false,
-    'x4': false,
-    'x5': false,
-    'x6': false,
-    'x7': false,
-    'x8': false,
-    'x9': false
+    'x3': false
 }
 
 // Should actually be able to cache this, I think, and just check if n is >10*r*result.
@@ -117,12 +67,9 @@ const floorLog = (n: number) => Math.pow(10, Math.floor(Math.log10(n / r)));
 const r = 10e7;
 
 type PrestigeFn = (n: number) => number;
-let PrestigeFns: { [key: string]: PrestigeFn } = {
-    default: (n: number) => Math.floor(Math.max(0, Math.log(n))),
-    root: (n: number) => Math.floor(Math.sqrt(n)),
-    combine: (n: number) => Math.floor(Math.max(0, Math.log(n) + Math.sqrt(n)) / 2),
-    fancy: (n: number) => Math.floor(floorLog(n) / (1 + Math.pow(Math.E, -1 * ((n / r) - 5.747734128 * floorLog(n)) / floorLog(n))) + floorLog(n) / 10)
-};
+type PrestigeFns = { [key: string]: PrestigeFn };
+
+let {prestige: PrestigeFns} = config;
 
 function prestige(fn: PrestigeFn = PrestigeFns.default) {
     let nextX = fn(currH);
@@ -154,30 +101,32 @@ function calcCost(g: Generator | Upgrade) {
 /**
  * This is the value calculation. The lowest result is currently best.
  */
-function calcVal(g: Generator | Upgrade) {
-    let currR = rate ? 1 / rate : 1;
-    if (isGen(g))
-        return calcCost(g) * (currR + 1 / g.power);
-    else
-        return g.price * (currR + 1 / (g.tiers.reduce((acc, val) => {
-            return acc + gens[val].num * g.power;
-        }, 0)));
+function calcVal(g: Generator | Upgrade): number {
+    return 1;
+    // let currR = rate ? 1 / rate : 1;
+    // if (isGen(g))
+    //     return calcCost(g) * (currR + 1 / g.power);
+    // else
+    //     return g.price * (currR + 1 / (g.tiers.reduce((acc, val) => {
+    //         return acc + gens[val].num * g.power;
+    //     }, 0)));
 }
 /**
  * Check if generator's available for purchase by verifying its dependencies.
  */
 function isAvail(g: Generator | Upgrade): boolean {
-    if (isGen(g))
-        return g.deps.every(val => {
-            return !!gens[val].num;
-        })
-    else {
-        return (!g.bought && g.deps.every(val => {
-            return upgrades[val].bought;
-        }) && g.exotic_deps.every(val => {
-            return exoticDeps[val];
-        }));
-    }
+    return true;
+    // if (isGen(g))
+    //     return g.deps.every(val => {
+    //         return !!gens[val].num;
+    //     })
+    // else {
+    //     return (!g.bought && g.deps.every(val => {
+    //         return upgrades[val].bought;
+    //     }) && g.exotic_deps.every(val => {
+    //         return exoticDeps[val];
+    //     }));
+    // }
 }
 
 function findBest(): Generator | Upgrade {
