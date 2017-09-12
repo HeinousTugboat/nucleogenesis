@@ -3,19 +3,19 @@
  */
 
 import config from './config';
-import {Generator, IGen, isGen} from './generators';
-import {Upgrade, IUp} from './upgrades';
+import { Generator, IGen, isGen } from './generators';
+import { Upgrade, IUp } from './upgrades';
 
-const {MIN, HR, DAY} = config;
+const { MIN, HR, DAY } = config;
 // const MAX_TIME = 1 * DAY + 1;
 const MAX_TIME = 10;
-const {H, xH} = config.resources;
+const { H, xH } = config.resources;
 
 let currH = H.current;
 let totalH = H.total;
 let rate = H.rate;
-const {coeff} = config;
-let {current: currX, total: totalX} = xH;
+const { coeff } = config;
+let { current: currX, total: totalX } = xH;
 
 /** Num of exotic particles to prestige at.. */
 const xThresh = Infinity;
@@ -32,29 +32,12 @@ const exForm = 'fancy';
  */
 
 const fs = require('fs');
-const path = './analysis/sim-'+Date.now()+'.csv';
+const path = './analysis/sim-' + Date.now() + '.csv';
 const stream = fs.createWriteStream(path);
 
-let gens: IGen = require('../src/data/generators.json');
-let upgrades: IUp = require('../src/data/upgrades.json');
 let slush: (Generator | Upgrade)[] = [];
 
-for (let gen in gens) {
-    gens[gen].num = 0;
-    gens[gen].basePower = gens[gen].power;
-    gens[gen].type = 'generator';
-    slush.push(gens[gen]);
-}
-
-for (let upgrade in upgrades) {
-    upgrades[upgrade].bought = false;
-    upgrades[upgrade].power = +upgrade.match(/([0-9])$/g);
-    upgrades[upgrade].exotic_deps = [...upgrades[upgrade].exotic_deps];
-    upgrades[upgrade].type = 'upgrade';
-    slush.push(upgrades[upgrade]);
-}
-
-const choices: (Generator | Upgrade)[] = [gens['1'], gens['2'], upgrades['1-1'], upgrades['2-1']];
+// const choices: (Generator | Upgrade)[] = [gens['1'], gens['2'], upgrades['1-1'], upgrades['2-1']];
 
 
 let exoticDeps = {
@@ -69,7 +52,7 @@ const r = 10e7;
 type PrestigeFn = (n: number) => number;
 type PrestigeFns = { [key: string]: PrestigeFn };
 
-let {prestige: PrestigeFns} = config;
+let { prestige: PrestigeFns } = config;
 
 function prestige(fn: PrestigeFn = PrestigeFns.default) {
     let nextX = fn(currH);
