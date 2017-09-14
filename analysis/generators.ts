@@ -40,8 +40,21 @@ export class Generator {
 
 }
 
-const gens: IGen = require('../build/data/generators.json');
+// const gens: IGen = require('../build/data/generators.json');
+// for (const gen in gens) {
+//     new Generator(gens[gen]);
+// }
 
-for (const gen in gens) {
-    new Generator(gens[gen]);
-}
+let gens = [
+    { "label": "I",    "coeff": 1.12, "price": 1e1,  "power":    1 },
+    { "label": "II",   "coeff": 1.12, "price": 1e2,  "power":    5 },
+    { "label": "III",  "coeff": 1.12, "price": 1e3,  "power":   10 },
+    { "label": "IV",   "coeff": 1.12, "price": 1e4,  "power":   25 },
+    { "label": "V",    "coeff": 1.13, "price": 1e5,  "power":   50 },
+    { "label": "VI",   "coeff": 1.14, "price": 1e6,  "power":  100 },
+    { "label": "VII",  "coeff": 1.14, "price": 1e7,  "power":  250 },
+    { "label": "VIII", "coeff": 1.14, "price": 1e8,  "power":  500 },
+    { "label": "IX",   "coeff": 1.15, "price": 1e9,  "power":  750 },
+    { "label": "X",    "coeff": 1.15, "price": 1e10, "power": 1000 }
+
+]
