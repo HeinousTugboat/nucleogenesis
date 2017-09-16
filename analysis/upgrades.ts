@@ -1,89 +1,111 @@
 import { Generator } from './generators';
+import { Dependency, Purchasable } from './resource';
 
-export interface UpgradeJSON {
-    name: string;
-    description: string;
-    deps: string[];
-    exotic_deps: string[];
-    dark_deps: string[];
-    function: string;
-    price: number;
-    tiers: string[];
-}
-export interface IUp {
-    [key: string]: UpgradeJSON
-}
-type upgradeFn = 'multiplier' | 'synergies' | 'boost';
-
-const upgradeFns = {
-    'multiplier': (power, prod, tier) => prod * power,
-    'synergies': (power, prod, tier) => prod * (1 + Generator.list.get(tier).num / 100),
-    'boost': (power, prod, tier) => prod * (1 + Math.floor(Generator.list.get(tier).num) / power.qty) * power.percent
-};
-
-const genRanks = {
-    1: 'I', 2: 'II',
-    3: 'III', 4: 'IV',
-    5: 'V', 6: 'VI',
-    7: 'VII', 8: 'VIII',
-    9: 'IX', 10: 'X'
+export function isUpgrade(g: Generator | Upgrade | Purchasable | Dependency): g is Upgrade {
+    return (<Upgrade>g).type === 'upgrade';
 }
 
-const boostRanks = {
-    1: { percent: 0.05, qty: 10 },
-    2: { percent: 0.25, qty: 25 },
-    3: { percent: 1.00, qty: 50 },
-    4: { percent: 2.50, qty: 100 }
-}
-
-interface Boost {
-    qty: number;
-    percent: number;
-}
-
-export class Upgrade {
-    static list: Map<string, Upgrade> = new Map;
+/**
+ * Upgrades are attached to a specific generator, and simply multiply the
+ * generators production by their bonus function. Bonus functions can associate
+ * any two generators.
+ */
+export class Upgrade implements Dependency, Purchasable {
+    static list: Set<Upgrade> = new Set;
     public type: 'upgrade';
-    public name: string = 'Unnamed Upgrade';
-    public description: string = 'Unknown Description';
-    public price: number = 0;
-    public deps: string[] = [];
-    public exoticDeps: string[] = [];
-    public darkDeps: string[] = [];
-    public tiers: string[];
-    public num: number = 0;
-    public baseTier: string;
-    public basePower: (number | string) = 0;
-    public upgradeType: upgradeFn;
-    constructor(public label: string, json: UpgradeJSON) {
-        ({
-            name: this.name,
-            description: this.description,
-            deps: [...this.deps],
-            exotic_deps: [...this.exoticDeps],
-            dark_deps: [...this.darkDeps],
-            price: this.price,
-            tiers: [...this.tiers]
-        } = json);
-        const [labelName, labelRank, labelTier] = label.split('-');
-        this.upgradeType = (<upgradeFn>labelName);
-        this.baseTier = genRanks[labelTier];
-        switch (this.upgradeType) {
-            case 'multiplier':
-                this.basePower = parseInt(labelRank) + 1;
-            case 'synergies':
-                this.basePower = 0;
-            case 'boost':
-                this.basePower = boostRanks[parseInt(labelRank)];
-        }
+    public available = false;
+    public bought = false;
+    constructor(
+        public name: string = 'Unnamed Upgrade',
+        protected target: Generator,
+        protected bonusFn: () => number = () => 1,
+        protected price: number,
+        protected deps: Dependency[],
+        protected source: Generator = target) {
+        target.upgrades.push(this);
+        Upgrade.list.add(this);
+    }
 
-        Upgrade.list.set(this.name, this);
+    purchase(): number {
+        if (this.checkAvailable()) {
+            this.bought = true;
+            return this.getCost();
+        } else {
+            return 0;
+        }
+    }
+    getValue(rate: number): number { // NB: This could possible introduce negatives.
+        return this.getCost() * (1 / (rate * (this.bonus()) - 1) + 1 / rate);
+    }
+    isFulfilled(): boolean {
+        return this.available && this.bought;
+    }
+
+    checkAvailable(): boolean {
+        if (this.bought) {
+            this.available = false;
+        } else {
+            this.available = this.deps.every((dep: Dependency) => dep.isFulfilled());
+        }
+        return this.available;
+    }
+
+    getCost(): number {
+        if (!this.bought) {
+            return this.price;
+        } else {
+            return 0;
+        }
+    }
+
+    /**
+     * Calculates the upgrade's multiplier and returns it.
+     * @returns {number} Upgrade Bonus Multiplier
+     */
+    bonus(): number {
+        if (this.bought) {
+            return this.bonusFn();
+        } else {
+            return 1;
+        }
     }
 }
 
+/**
+ * Basic Upgrade is the simple multiplier upgrade.
+ */
+export class BasicUpgrade extends Upgrade {
+    constructor(protected target: Generator,
+        private mult: number,
+        protected price: number,
+        protected deps: Dependency[]) {
+        super(`${target.name}: x${mult} Multiplier`, target, () => mult, price, deps);
+    }
+}
 
-const upgrades: IUp = require('../build/data/upgrades.json');
+/**
+ * Boost Upgrade multiplier is 1+mult*current/num, for instance, +10% for every 10 generators.
+ */
+export class BoostUpgrade extends Upgrade {
+    constructor(protected target: Generator,
+        private mult: number,
+        private num: number,
+        protected price: number,
+        protected deps: Dependency[]
+    ) {
+        super(`${target.name}: ${mult}/${num} Boost`, target, () => 1 + Math.floor(target.num / num) * mult, price, deps);
+    }
+}
 
-for (const upgrade in upgrades) {
-    new Upgrade(upgrade, upgrades[upgrade]);
+/**
+ * Synergy Upgrade multiplier is 1+source number/100. For instance, boosting II by 1% of IV.
+ */
+export class SynergyUpgrade extends Upgrade {
+    constructor(protected target: Generator,
+        protected price: number,
+        protected deps: Dependency[],
+        protected source: Generator
+    ) {
+        super(`${target.name}: ${source.name} Synergy`, target, () => 1 + Math.floor(source.num / 100), price, deps, source);
+    }
 }

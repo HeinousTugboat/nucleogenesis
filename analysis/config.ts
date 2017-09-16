@@ -1,15 +1,15 @@
 type PrestigeFn = (n: number) => number;
 
 const MIN = 60;
-const HR = 60*MIN;
-const DAY = 24*HR;
-const WEEK = 7*DAY;
+const HR = 60 * MIN;
+const DAY = 24 * HR;
+const WEEK = 7 * DAY;
 const floorLog = (n: number) => Math.pow(10, Math.floor(Math.log10(n / r)));
 const r = 10e7;
 
 export default {
     MIN, HR, DAY, WEEK,
-    simLength: 1*DAY+1,
+    simLength: 1 * DAY + 1,
     resources: {
         H: {
             current: 15,
