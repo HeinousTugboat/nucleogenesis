@@ -84,7 +84,7 @@ for (let i = 0; i <= MAX_TIME; i++) {
         last = i;
     }
 
-    let out = `${i / DAY},${rate},${totalH},${currH},${longest},${i - last},`;
+    let out = `${i / DAY},${rate},${totalH},${currH},${longest.toFixed(1)},${(i - last).toFixed(1)},`;
     for (const gen of Generator.list.values()) {
         out += gen.num + ',';
         if (printVals) {

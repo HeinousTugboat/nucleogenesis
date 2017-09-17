@@ -78,11 +78,11 @@ gens.push(new Generator('X', 1e10, 1000, 1.15, [gens[8]]));
 
 gens.forEach(gen => {
     let basic = new BasicUpgrade(gen, 2, 1e5 * gen.power, [gen]);
-    // let basic2 = new BasicUpgrade(gen, 3, ???, [gen, basic, xBasic3x]);
-    // let boost = new BoostUpgrade(gen, 0.05, 10, ???, [gen, xBoost]);
-    // let boost2 = new BoostUpgrade(gen, 0.25, 25, ???, [gen, boost, xBoost2]);
-    // let boost3 = new BoostUpgrade(gen, 1, 50, ???, [gen, boost2, xBoost3]);
-    // let boost4 = new BoostUpgrade(gen, 2.5, 100, ???, [gen, boost3, xBoost4]);
+    let basic2 = new BasicUpgrade(gen, 3, 1e7 * gen.power, [gen, basic]);
+    // let boost = new BoostUpgrade(gen, 0.05, 10, 1e5 * gen.power, [gen]);
+    // let boost2 = new BoostUpgrade(gen, 0.25, 25, 1e7 * gen.power, [gen, boost]);
+    // let boost3 = new BoostUpgrade(gen, 1, 50, 1e9 * gen.power, [gen, boost2]);
+    // let boost4 = new BoostUpgrade(gen, 2.5, 100, 1e11 * gen.power, [gen, boost3]);
     gens.forEach(source => {
         if (gen !== source) {
             // let synergy = new SynergyUpgrade(gen, 10, [xSyn(source)], source);
